@@ -1,8 +1,79 @@
 import cv2
-import numpy as np
+import math
+#import numpy as np
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+
+params = cv2.SimpleBlobDetector_Params()
+
+def detectPupils(gray, frame, eye):
+    (ex, ey, ew, eh) = eye
+
+    roi_gray = gray[ey: ey + eh, ex: ex + ew]
+    roi_color = frame[ey: ey + eh, ex: ex + ew]
+
+    # Change thresholds
+    params.minThreshold = 10
+    params.maxThreshold = 200
+
+    # Filter by Area.
+    params.filterByArea = True
+    params.minArea = 1500
+
+    # Filter by Circularity
+    params.filterByCircularity = True
+    params.minCircularity = 0.1
+
+    # Filter by Convexity
+    params.filterByConvexity = True
+    params.minConvexity = 0.87
+
+    # Filter by Inertia
+    params.filterByInertia = True
+    params.minInertiaRatio = 0.01
+
+    # Create a detector with the parameters
+    detector = cv2.SimpleBlobDetector_create(params)
+
+    # Detect blobs.
+    keypoints = detector.detect(roi_gray)
+
+    for keypoint in keypoints:
+       x = int(keypoint.pt[0])
+       y = int(keypoint.pt[1])
+       s = keypoint.size
+       r = int(math.floor(s/2))
+       
+       cv2.circle(roi_color, (x, y), r, (255, 255, 0), 2)
+
+    return roi_color
+
+
+def detectEyes(gray, frame, face):
+    (x, y, width, height) = face
+
+    roi_gray = gray[y: y + height, x: x + width]
+    roi_color = frame[y: y + height, x: x + width]
+
+    eyes = eye_cascade.detectMultiScale(roi_gray, 1.1, 3)
+
+    for eye in eyes:
+        (ex, ey, ew, eh) = eye
+
+        cv2.rectangle(
+            roi_color,
+            (ex, ey),
+            (ex + ew, ey + eh),
+            (0, 255, 0),
+            2
+            )
+
+    for eye in eyes:
+        frame = detectPupils(gray, frame, eye)
+
+    return frame
+
 
 def detect(gray, frame):
     # provides a list of coordinates of faces from the gray frame
@@ -12,7 +83,8 @@ def detect(gray, frame):
         6 # minimum neighbors each candidate rectangle should have to retain it.
         )
 
-    for (x, y, width, height) in faces:
+    for face in faces:
+        (x, y, width, height) = face
         # draw a rectangle in the color frame
         cv2.rectangle(
             frame,
@@ -22,50 +94,11 @@ def detect(gray, frame):
             2 # width of rectangle
             )
 
-        # region of interest where we try to find eyes
-        # [rows : cols]
-        roi_gray = gray[y: y + height, x: x + width]
-        roi_color = frame[y: y + height, x: x + width]
-
-        eyes = eye_cascade.detectMultiScale(roi_gray, 1.1, 3)
-
-        for (ex, ey, ew, eh) in eyes:
-            cv2.rectangle(
-                roi_color,
-                (ex, ey),
-                (ex + ew, ey + eh),
-                (0, 255, 0),
-                2
-                )
-
-            roi_eyes_gray = gray[ey: ey + height, ex: ex + width]
-            roi_eyes_color = frame[ey: ey + height, ex: ex + width]
-            #roi_eyes_gray = cv2.medianBlur(roi_eyes_gray, 2)
-        
-            circles = cv2.HoughCircles(
-                    roi_eyes_gray, 
-                    cv2.HOUGH_GRADIENT, 
-                    1, 
-                    4, 
-#                    param1 = 10,
-                    param2 = 12,
-                    minRadius = 5,
-                    maxRadius = 11
-                    )
-            
-            if circles is not None:
-                circles = np.uint16(np.around(circles))
-                for i in circles[0, :]:
-                    center = (i[0], i[1])
-                    # circle center
-                    cv2.circle(roi_eyes_color, center, 1, (0, 100, 100), 3)
-                    # circle outline
-                    radius = i[2]
-                    cv2.circle(roi_eyes_color, center, radius, (255, 0, 255), 3)
-            
-            print (circles)
+    for face in faces:
+        frame = detectEyes(gray, frame, face)
 
     return frame
+
 
 # We turn the webcam on
 video_capture = cv2.VideoCapture(0)
