@@ -1,5 +1,4 @@
 import cv2
-cv2.__version__
 import numpy as np
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -10,7 +9,7 @@ def detect(gray, frame):
     faces = face_cascade.detectMultiScale(
         gray,
         1.3, # scale factor
-        5 # minimum neighbors each candidate rectangle should have to retain it.
+        6 # minimum neighbors each candidate rectangle should have to retain it.
         )
 
     for (x, y, width, height) in faces:
@@ -41,17 +40,17 @@ def detect(gray, frame):
 
             roi_eyes_gray = gray[ey: ey + height, ex: ex + width]
             roi_eyes_color = frame[ey: ey + height, ex: ex + width]
-#            roi_eyes_gray = cv2.medianBlur(roi_eyes_gray, 2)
+            #roi_eyes_gray = cv2.medianBlur(roi_eyes_gray, 2)
         
             circles = cv2.HoughCircles(
                     roi_eyes_gray, 
                     cv2.HOUGH_GRADIENT, 
                     1, 
-                    2, 
+                    4, 
 #                    param1 = 10,
                     param2 = 12,
-                    minRadius = 2,
-                    maxRadius = 13
+                    minRadius = 5,
+                    maxRadius = 11
                     )
             
             if circles is not None:
