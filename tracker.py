@@ -19,15 +19,15 @@ def detectPupils(gray, frame, eye):
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 1500
+    params.minArea = 200
 
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.1
+    params.minCircularity = 0.4
 
     # Filter by Convexity
     params.filterByConvexity = True
-    params.minConvexity = 0.87
+    params.minConvexity = 0.5
 
     # Filter by Inertia
     params.filterByInertia = True
@@ -35,7 +35,7 @@ def detectPupils(gray, frame, eye):
 
     # Create a detector with the parameters
     detector = cv2.SimpleBlobDetector_create(params)
-
+    
     # Detect blobs.
     keypoints = detector.detect(roi_gray)
 
@@ -47,7 +47,7 @@ def detectPupils(gray, frame, eye):
        
        cv2.circle(roi_color, (x, y), r, (255, 255, 0), 2)
 
-    return roi_color
+    return frame
 
 
 def detectEyes(gray, frame, face):
