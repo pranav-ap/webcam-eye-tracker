@@ -13,31 +13,33 @@ def detectPupils(gray, frame, eye):
     roi_gray = gray[ey: ey + eh, ex: ex + ew]
     roi_color = frame[ey: ey + eh, ex: ex + ew]
 
-    # Change thresholds
-    params.minThreshold = 10
-    params.maxThreshold = 200
+    canny_edge = cv2.Canny(gray, 0, 0)
 
+    # Change thresholds
+    params.minThreshold = 1
+    
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 200
-
+    params.minArea = 50
+    params.minArea = 800
+    
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.4
-
+    params.minCircularity = 0.7
+    
     # Filter by Convexity
     params.filterByConvexity = True
-    params.minConvexity = 0.5
-
+    params.minConvexity = 0.9
+    
     # Filter by Inertia
     params.filterByInertia = True
-    params.minInertiaRatio = 0.01
+    params.minInertiaRatio = 0.001
 
     # Create a detector with the parameters
     detector = cv2.SimpleBlobDetector_create(params)
     
     # Detect blobs.
-    keypoints = detector.detect(roi_gray)
+    keypoints = detector.detect(canny_edge)
 
     for keypoint in keypoints:
        x = int(keypoint.pt[0])
@@ -45,7 +47,7 @@ def detectPupils(gray, frame, eye):
        s = keypoint.size
        r = int(math.floor(s/2))
        
-       cv2.circle(roi_color, (x, y), r, (255, 255, 0), 2)
+       cv2.circle(frame, (x, y), r, (255, 255, 0), 2)
 
     return frame
 
@@ -76,6 +78,7 @@ def detectEyes(gray, frame, face):
 
 
 def detect(gray, frame):
+    gray = cv2.blur(gray, (7,7))
     # provides a list of coordinates of faces from the gray frame
     faces = face_cascade.detectMultiScale(
         gray,

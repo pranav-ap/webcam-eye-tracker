@@ -5,45 +5,38 @@ import numpy as np
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
-def detect(gray, frame):
-    params = cv2.SimpleBlobDetector_Params()
-    
-    # Change thresholds
-    params.minThreshold = 10
-    params.maxThreshold = 200
 
+def detectPupils(gray, frame, eye):
+    (ex, ey, ew, eh) = eye
+
+    roi_gray = gray[ey: ey + eh, ex: ex + ew]
+    roi_color = frame[ey: ey + eh, ex: ex + ew]
+    
+    params = cv2.SimpleBlobDetector_Params()
+
+    # Change thresholds
+    params.minThreshold = 1
+    
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 100
-
+    params.minArea = 50
+    params.minArea = 800
+    
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.3
-
+    params.minCircularity = 0.7
+    
     # Filter by Convexity
     params.filterByConvexity = True
-    params.minConvexity = 0.4
-
+    params.minConvexity = 0.9
+    
     # Filter by Inertia
     params.filterByInertia = True
-    params.minInertiaRatio = 0.5
+    params.minInertiaRatio = 0.001
 
     # Create a detector with the parameters
     detector = cv2.SimpleBlobDetector_create(params)
     
-    
-    # Apply adaptive thresholding
-    max_output_value = 255
-    neighorhood_size = 99
-    subtract_from_mean = 10
-    gray = cv2.adaptiveThreshold(gray, 
-                                max_output_value, 
-                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-                                cv2.THRESH_BINARY, 
-                                neighorhood_size, 
-                                subtract_from_mean)
- 
-
     # Detect blobs.
     keypoints = detector.detect(gray)
 
@@ -53,9 +46,29 @@ def detect(gray, frame):
        s = keypoint.size
        r = int(math.floor(s/2))
        
-       print(x, y, s, r)
+       print(x, y, r)
        
-       cv2.circle(frame, (x, y), r, (0, 255, 0), 2)
+       cv2.circle(gray, (x, y), r, (255, 255, 0), 2)
+
+    return gray
+
+
+def detect(gray, frame):
+    eyes = eye_cascade.detectMultiScale(gray, 1.1, 3)
+
+    for eye in eyes:
+        (ex, ey, ew, eh) = eye
+
+        cv2.rectangle(
+            frame,
+            (ex, ey),
+            (ex + ew, ey + eh),
+            (0, 255, 0),
+            2
+            )
+
+    for eye in eyes:
+        frame = detectPupils(gray, frame, eye)
 
     return frame
 
@@ -80,3 +93,5 @@ while True:
 video_capture.release()
 # close all windows
 cv2.destroyAllWindows()
+# -*- coding: utf-8 -*-
+
