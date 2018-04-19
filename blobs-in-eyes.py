@@ -13,7 +13,7 @@ def detectPupils(gray, frame, eye):
     roi_color = frame[ey: ey + eh, ex: ex + ew]
     
     params = cv2.SimpleBlobDetector_Params()
-
+    
     # Change thresholds
     params.minThreshold = 1
     
@@ -37,8 +37,19 @@ def detectPupils(gray, frame, eye):
     # Create a detector with the parameters
     detector = cv2.SimpleBlobDetector_create(params)
     
+    
+    # Apply adaptive thresholding
+    max_output_value = 255
+    neighorhood_size = 99
+    subtract_from_mean = 10
+    roi_gray = cv2.adaptiveThreshold(roi_gray, 
+                                max_output_value, 
+                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                                cv2.THRESH_BINARY, 
+                                neighorhood_size, 
+                                subtract_from_mean)
     # Detect blobs.
-    keypoints = detector.detect(gray)
+    keypoints = detector.detect(roi_gray)
 
     for keypoint in keypoints:
        x = int(keypoint.pt[0])
@@ -48,13 +59,13 @@ def detectPupils(gray, frame, eye):
        
        print(x, y, r)
        
-       cv2.circle(gray, (x, y), r, (255, 255, 0), 2)
+       cv2.circle(roi_gray, (x, y), r, (0, 0, 255), 2)
 
     return gray
 
 
 def detect(gray, frame):
-    eyes = eye_cascade.detectMultiScale(gray, 1.1, 3)
+    eyes = eye_cascade.detectMultiScale(gray, 1.1, 4)
 
     for eye in eyes:
         (ex, ey, ew, eh) = eye

@@ -3,33 +3,28 @@ import numpy as np
 
 
 def preprocessFrame(gray, frame):
-    # Create kernel
-    kernel = np.array([[0, -1, 0],
-                       [-1, 5,-1],
-                       [0, -1, 0]])
+    
+        # Create kernel
+    kernel = np.array([[0, -2, 0],
+                       [-2, 35,-2],
+                       [0, -2, 0]])
 #
 #    # Sharpen image
     gray = cv2.filter2D(gray, -1, kernel)
-
-#    # Apply adaptive thresholding
-#    max_output_value = 255
-#    neighorhood_size = 99
-#    subtract_from_mean = 40
-#    gray = cv2.adaptiveThreshold(gray,
-#                                max_output_value,
-#                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-#                                cv2.THRESH_BINARY,
-#                                neighorhood_size,
-#                                subtract_from_mean)
-
-#    gray = cv2.GaussianBlur(gray,(5,5),0)
-
-#    kernel = np.ones((3,3),np.uint8)
-#    gray = cv2.erode(gray,kernel,iterations = 1)
-#    gray = cv2.dilate(gray,kernel,iterations = 1)
-
-#    gray = cv2.morphologyEx(gray, cv2.MORPH_OPEN, kernel)
-
+    
+    
+    # Apply adaptive thresholding
+    max_output_value = 255
+    neighorhood_size = 99
+    subtract_from_mean = 15
+    
+    gray = cv2.adaptiveThreshold(gray,
+                                max_output_value,
+                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                cv2.THRESH_BINARY,
+                                neighorhood_size,
+                                subtract_from_mean
+                                )
 
     return gray
 

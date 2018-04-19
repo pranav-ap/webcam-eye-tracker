@@ -9,16 +9,16 @@ def detect(gray, frame):
     params = cv2.SimpleBlobDetector_Params()
     
     # Change thresholds
-    params.minThreshold = 10
-    params.maxThreshold = 200
+    params.minThreshold = 80
+#    params.maxThreshold = 200
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 100
+    params.minArea = 110
 
     # Filter by Circularity
     params.filterByCircularity = True
-    params.minCircularity = 0.3
+    params.minCircularity = 0.6
 
     # Filter by Convexity
     params.filterByConvexity = True
@@ -26,24 +26,25 @@ def detect(gray, frame):
 
     # Filter by Inertia
     params.filterByInertia = True
-    params.minInertiaRatio = 0.5
+    params.minInertiaRatio = 0.4
 
     # Create a detector with the parameters
-    detector = cv2.SimpleBlobDetector_create(params)
-    
+    detector = cv2.SimpleBlobDetector_create(params) 
     
     # Apply adaptive thresholding
     max_output_value = 255
     neighorhood_size = 99
     subtract_from_mean = 10
-    gray = cv2.adaptiveThreshold(gray, 
-                                max_output_value, 
-                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-                                cv2.THRESH_BINARY, 
-                                neighorhood_size, 
-                                subtract_from_mean)
- 
+    
+    gray = cv2.adaptiveThreshold(gray,
+                                max_output_value,
+                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                cv2.THRESH_BINARY,
+                                neighorhood_size,
+                                subtract_from_mean
+                                )
 
+    
     # Detect blobs.
     keypoints = detector.detect(gray)
 
@@ -55,9 +56,9 @@ def detect(gray, frame):
        
        print(x, y, s, r)
        
-       cv2.circle(frame, (x, y), r, (0, 255, 0), 2)
+       cv2.circle(gray, (x, y), r, (0, 0, 255), -1)
 
-    return frame
+    return gray
 
 
 # We turn the webcam on
