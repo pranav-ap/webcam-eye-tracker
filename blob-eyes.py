@@ -7,14 +7,14 @@ eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 
 def detect(gray, frame):
     params = cv2.SimpleBlobDetector_Params()
-    
+
     # Change thresholds
-    params.minThreshold = 80
+    params.minThreshold = 30
 #    params.maxThreshold = 200
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 110
+    params.minArea = 50
 
     # Filter by Circularity
     params.filterByCircularity = True
@@ -29,34 +29,21 @@ def detect(gray, frame):
     params.minInertiaRatio = 0.4
 
     # Create a detector with the parameters
-    detector = cv2.SimpleBlobDetector_create(params) 
-    
-    # Apply adaptive thresholding
-    max_output_value = 255
-    neighorhood_size = 99
-    subtract_from_mean = 10
-    
-    gray = cv2.adaptiveThreshold(gray,
-                                max_output_value,
-                                cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                cv2.THRESH_BINARY,
-                                neighorhood_size,
-                                subtract_from_mean
-                                )
+    detector = cv2.SimpleBlobDetector_create(params)
 
-    
+
     # Detect blobs.
     keypoints = detector.detect(gray)
 
     for keypoint in keypoints:
-       x = int(keypoint.pt[0])
-       y = int(keypoint.pt[1])
-       s = keypoint.size
-       r = int(math.floor(s/2))
-       
-       print(x, y, s, r)
-       
-       cv2.circle(gray, (x, y), r, (0, 0, 255), -1)
+        x = int(keypoint.pt[0])
+        y = int(keypoint.pt[1])
+        s = keypoint.size
+        r = int(math.floor(s/2))
+
+        print(x, y)
+
+        cv2.circle(gray, (x, y), r, (0, 0, 255), -1)
 
     return gray
 

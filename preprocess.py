@@ -3,20 +3,13 @@ import numpy as np
 
 
 def preprocessFrame(gray, frame):
-    
-        # Create kernel
-    kernel = np.array([[0, -2, 0],
-                       [-2, 35,-2],
-                       [0, -2, 0]])
-#
-#    # Sharpen image
-    gray = cv2.filter2D(gray, -1, kernel)
+
     
     
     # Apply adaptive thresholding
     max_output_value = 255
     neighorhood_size = 99
-    subtract_from_mean = 15
+    subtract_from_mean = 10
     
     gray = cv2.adaptiveThreshold(gray,
                                 max_output_value,
@@ -25,7 +18,15 @@ def preprocessFrame(gray, frame):
                                 neighorhood_size,
                                 subtract_from_mean
                                 )
-
+    
+        # Create kernel
+    kernel = np.array([[0, -1, 0],
+                       [-1, 10,-1],
+                       [0, -1, 0]])
+#
+#    # Sharpen image
+    gray = cv2.filter2D(gray, -1, kernel)
+    
     return gray
 
 
