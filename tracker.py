@@ -22,7 +22,7 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
 
     # Filter by Area.
     params.filterByArea = True
-    params.minArea = 10
+    params.minArea = 20
     params.minArea = 100
 
     # Filter by Circularity
@@ -49,7 +49,7 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
        s = keypoint.size
        r = int(math.floor(s/2))
 
-       print(x, y, r)
+       print("pupil : ", (x, y, r))
 
        cv2.circle(just_the_eye_frame, (x, y), r, (0, 0, 255), 2)
 
@@ -95,6 +95,16 @@ def detectEyes(color_frame_full, preprocessed_frame_full, face):
             2
             )
 
+        cv2.putText(
+            just_the_face_frame,
+            "Eye",
+            (ex, ey - 5),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (255, 255, 0),
+            2
+            )
+
         print('eye : ', (ex, ey, ew, eh))
 
         preprocessed_frame_full = detectPupils(color_frame_full, preprocessed_frame_full, face, eye)
@@ -118,6 +128,16 @@ def detectFaces(color_frame_full, preprocessed_frame_full):
             (x + width, y + height),
             (255, 0, 0), # color of rectangle
             2 # width of rectangle
+            )
+
+        cv2.putText(
+            preprocessed_frame_full,
+            "Face",
+            (x, y - 5),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (255, 255, 0),
+            2
             )
 
         print('face : ', (x, y, width, height))
@@ -151,7 +171,7 @@ def main():
         # perform detection
         canvas = start(color_frame_full)
         # display frame with the rectangles
-        cv2.imshow('Video', canvas)
+        cv2.imshow('Main Frame', canvas)
         # check for quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
