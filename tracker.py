@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+right_eye_cascade = cv2.CascadeClassifier('haarcascade_right_eye.xml')
 
 
 def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
@@ -13,14 +13,66 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
     just_the_face_frame = preprocessed_frame_full[y: y + height, x: x + width]
     just_the_eye_frame = just_the_face_frame[ey: ey + eh, ex: ex + ew]
 
+    preprocesses_just_the_eye_frame = preprocess_just_the_eye_frame(just_the_eye_frame)
 
-    just_the_eye_frame = preprocess_just_the_eye_frame(just_the_eye_frame)
+    params = cv2.SimpleBlobDetector_Params()
+
+    # Change thresholds
+    params.minThreshold = 5
+
+    # Filter by Area.
+    params.filterByArea = True
+    params.minArea = 10
+    params.minArea = 100
+
+    # Filter by Circularity
+    params.filterByCircularity = True
+    params.minCircularity = 0.3
+
+    # Filter by Convexity
+    params.filterByConvexity = True
+    params.minConvexity = 0.5
+
+    # Filter by Inertia
+    params.filterByInertia = True
+    params.minInertiaRatio = 0.3
+
+    # Create a detector with the parameters
+    detector = cv2.SimpleBlobDetector_create(params)
+
+    # Detect blobs.
+    keypoints = detector.detect(preprocesses_just_the_eye_frame)
+
+    for keypoint in keypoints:
+       x = int(keypoint.pt[0])
+       y = int(keypoint.pt[1])
+       s = keypoint.size
+       r = int(math.floor(s/2))
+
+       print(x, y, r)
+
+       cv2.circle(just_the_eye_frame, (x, y), r, (0, 0, 255), 2)
+
+    cv2.imshow('preprocessed eyes', preprocesses_just_the_eye_frame)
+    cv2.imshow('detection eyes', just_the_eye_frame)
 
     return preprocessed_frame_full
 
 
 def preprocess_just_the_eye_frame(just_the_eye_frame):
-    cv2.imshow('Video eyes', just_the_eye_frame)
+    # Apply adaptive thresholding
+    max_output_value = 100
+    neighorhood_size = 99
+    subtract_from_mean = 8
+
+    just_the_eye_frame = cv2.adaptiveThreshold(
+        just_the_eye_frame,
+        max_output_value,
+        cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+        cv2.THRESH_BINARY,
+        neighorhood_size,
+        subtract_from_mean
+        )
 
     return just_the_eye_frame
 
@@ -30,9 +82,9 @@ def detectEyes(color_frame_full, preprocessed_frame_full, face):
 
     just_the_face_frame = preprocessed_frame_full[y: y + height, x: x + width]
 
-    eyes = eye_cascade.detectMultiScale(just_the_face_frame, 1.1, 7)
+    right_eyes = right_eye_cascade.detectMultiScale(just_the_face_frame, 1.3, 12)
 
-    for eye in eyes:
+    for eye in right_eyes:
         (ex, ey, ew, eh) = eye
 
         cv2.rectangle(
