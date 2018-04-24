@@ -1,9 +1,11 @@
 import cv2
-import math
-import numpy as np
+import logging
 
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-right_eye_cascade = cv2.CascadeClassifier('haarcascade_right_eye.xml')
+# global variables
+face_cascade = cv2.CascadeClassifier(r'.\haarcascades\haarcascade_frontalface_default.xml')
+right_eye_cascade = cv2.CascadeClassifier(r'.\haarcascades\haarcascade_right_eye.xml')
+
+pupil_detector = cv2.SimpleBlobDetector_create()
 
 
 def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
@@ -15,43 +17,21 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
 
     preprocesses_just_the_eye_frame = preprocess_just_the_eye_frame(just_the_eye_frame)
 
-    params = cv2.SimpleBlobDetector_Params()
-
-    # Change thresholds
-    params.minThreshold = 5
-
-    # Filter by Area.
-    params.filterByArea = True
-    params.minArea = 20
-    params.minArea = 100
-
-    # Filter by Circularity
-    params.filterByCircularity = True
-    params.minCircularity = 0.3
-
-    # Filter by Convexity
-    params.filterByConvexity = True
-    params.minConvexity = 0.5
-
-    # Filter by Inertia
-    params.filterByInertia = True
-    params.minInertiaRatio = 0.3
-
-    # Create a detector with the parameters
-    detector = cv2.SimpleBlobDetector_create(params)
-
-    # Detect blobs.
-    keypoints = detector.detect(preprocesses_just_the_eye_frame)
+    # Detect blobs
+    keypoints = pupil_detector.detect(preprocesses_just_the_eye_frame)
 
     for keypoint in keypoints:
-       x = int(keypoint.pt[0])
-       y = int(keypoint.pt[1])
-       s = keypoint.size
-       r = int(math.floor(s/2))
+        x = int(keypoint.pt[0])
+        y = int(keypoint.pt[1])
 
-       print("pupil : ", (x, y, r))
+        logging.info('Pupil coordinates : ' + str(x) + ' ,' + str(y))
 
-       cv2.circle(just_the_eye_frame, (x, y), r, (0, 0, 255), 2)
+        just_the_eye_frame = cv2.drawMarker(
+           just_the_eye_frame,
+           (x, y),
+           (255, 255, 0),
+           markerSize = 10
+           )
 
     cv2.imshow('preprocessed eyes', preprocesses_just_the_eye_frame)
     cv2.imshow('detection eyes', just_the_eye_frame)
@@ -105,8 +85,6 @@ def detectEyes(color_frame_full, preprocessed_frame_full, face):
             2
             )
 
-        print('eye : ', (ex, ey, ew, eh))
-
         preprocessed_frame_full = detectPupils(color_frame_full, preprocessed_frame_full, face, eye)
 
     return preprocessed_frame_full
@@ -140,8 +118,6 @@ def detectFaces(color_frame_full, preprocessed_frame_full):
             2
             )
 
-        print('face : ', (x, y, width, height))
-
         preprocessed_frame_full = detectEyes(color_frame_full, preprocessed_frame_full, face)
 
     return preprocessed_frame_full
@@ -161,7 +137,48 @@ def start(color_frame_full):
     return preprocessed_frame_full
 
 
+def setup():
+    # -- Setup logger --
+    logging.basicConfig(
+        format='%(asctime)s %(levelname)-8s %(message)s',
+    	level=logging.INFO,
+		datefmt='%Y-%m-%d %H:%M:%S',
+        filename = 'tracker.log',
+        filemode = 'w')
+
+
+    # -- Setup pupil detector --
+    params = cv2.SimpleBlobDetector_Params()
+
+    # Change thresholds
+    params.minThreshold = 30
+
+    # Filter by Area.
+    params.filterByArea = True
+    params.minArea = 35
+    params.minArea = 100
+
+    # Filter by Circularity
+    params.filterByCircularity = True
+    params.minCircularity = 0.4
+
+    # Filter by Convexity
+    params.filterByConvexity = True
+    params.minConvexity = 0.5
+
+    # Filter by Inertia
+    params.filterByInertia = True
+    params.minInertiaRatio = 0.3
+
+    # Create a detector with the parameters
+    global pupil_detector
+    pupil_detector = cv2.SimpleBlobDetector_create(params)
+
+
 def main():
+    # perform setup
+    setup()
+
     # We turn the webcam on
     video_capture = cv2.VideoCapture(0)
 
