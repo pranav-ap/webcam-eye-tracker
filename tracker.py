@@ -1,12 +1,13 @@
 import cv2
 import logging
 
-# global variables
+
 face_cascade = cv2.CascadeClassifier(r'.\haarcascades\haarcascade_frontalface_default.xml')
 right_eye_cascade = cv2.CascadeClassifier(r'.\haarcascades\haarcascade_right_eye.xml')
 
 pupil_detector = cv2.SimpleBlobDetector_create()
 
+previous_position = (1, 1)
 
 def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
     (x, y, width, height) = face
@@ -20,11 +21,11 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
     # Detect blobs
     keypoints = pupil_detector.detect(preprocesses_just_the_eye_frame)
 
+    print(just_the_eye_frame.shape)
+
     for keypoint in keypoints:
         x = int(keypoint.pt[0])
         y = int(keypoint.pt[1])
-
-        logging.info('Pupil coordinates : ' + str(x) + ' ,' + str(y))
 
         just_the_eye_frame = cv2.drawMarker(
            just_the_eye_frame,
@@ -32,6 +33,24 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
            (255, 255, 0),
            markerSize = 10
            )
+
+        global previous_position
+
+        cue = ''
+
+        if (previous_position[0] > x):
+            cue += ' right'
+        if (previous_position[0] < x):
+            cue += ' left'
+
+        if (previous_position[1] > y):
+            cue += ' down'
+        if (previous_position[1] < y):
+            cue += ' up'
+
+        previous_position = (x, y)
+
+        logging.info('Pupil coordinates : ' + str(x) + ' ,' + str(y) + ' Eye Cue : ' + cue)
 
     cv2.imshow('preprocessed eyes', preprocesses_just_the_eye_frame)
     cv2.imshow('detection eyes', just_the_eye_frame)
