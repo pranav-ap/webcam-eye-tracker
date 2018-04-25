@@ -1,82 +1,32 @@
-2018-04-25 07:56:14 INFO     Pupil coordinates : 43 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:14 INFO     Pupil coordinates : 44 ,60 Eye Cue :  moved left moved up
-2018-04-25 07:56:14 INFO     Pupil coordinates : 46 ,59 Eye Cue :  moved left moved down
-2018-04-25 07:56:14 INFO     Pupil coordinates : 47 ,60 Eye Cue :  moved left moved up
-2018-04-25 07:56:14 INFO     Pupil coordinates : 47 ,60 Eye Cue : 
-2018-04-25 07:56:14 INFO     Pupil coordinates : 43 ,58 Eye Cue :  moved right moved down
-2018-04-25 07:56:15 INFO     Pupil coordinates : 42 ,55 Eye Cue :  moved right moved down
-2018-04-25 07:56:15 INFO     Pupil coordinates : 42 ,55 Eye Cue : 
-2018-04-25 07:56:15 INFO     Pupil coordinates : 45 ,58 Eye Cue :  moved left moved up
-2018-04-25 07:56:15 INFO     Pupil coordinates : 41 ,56 Eye Cue :  moved right moved down
-2018-04-25 07:56:15 INFO     Pupil coordinates : 43 ,55 Eye Cue :  moved left moved down
-2018-04-25 07:56:15 INFO     Pupil coordinates : 44 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:15 INFO     Pupil coordinates : 42 ,55 Eye Cue :  moved right moved down
-2018-04-25 07:56:15 INFO     Pupil coordinates : 43 ,55 Eye Cue :  moved left
-2018-04-25 07:56:16 INFO     Pupil coordinates : 43 ,57 Eye Cue :  moved up
-2018-04-25 07:56:16 INFO     Pupil coordinates : 44 ,56 Eye Cue :  moved left moved down
-2018-04-25 07:56:16 INFO     Pupil coordinates : 42 ,57 Eye Cue :  moved right moved up
-2018-04-25 07:56:16 INFO     Pupil coordinates : 42 ,56 Eye Cue :  moved down
-2018-04-25 07:56:16 INFO     Pupil coordinates : 44 ,58 Eye Cue :  moved left moved up
-2018-04-25 07:56:16 INFO     Pupil coordinates : 42 ,55 Eye Cue :  moved right moved down
-2018-04-25 07:56:16 INFO     Pupil coordinates : 43 ,53 Eye Cue :  moved left moved down
-2018-04-25 07:56:16 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved up
-2018-04-25 07:56:17 INFO     Pupil coordinates : 42 ,53 Eye Cue :  moved right moved down
-2018-04-25 07:56:17 INFO     Pupil coordinates : 41 ,53 Eye Cue :  moved right
-2018-04-25 07:56:17 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved left moved up
-2018-04-25 07:56:17 INFO     Pupil coordinates : 43 ,53 Eye Cue :  moved down
-2018-04-25 07:56:17 INFO     Pupil coordinates : 43 ,55 Eye Cue :  moved up
-2018-04-25 07:56:17 INFO     Pupil coordinates : 44 ,54 Eye Cue :  moved left moved down
-2018-04-25 07:56:17 INFO     Pupil coordinates : 42 ,51 Eye Cue :  moved right moved down
-2018-04-25 07:56:17 INFO     Pupil coordinates : 42 ,53 Eye Cue :  moved up
-2018-04-25 07:56:17 INFO     Pupil coordinates : 45 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:18 INFO     Pupil coordinates : 45 ,57 Eye Cue :  moved up
-2018-04-25 07:56:18 INFO     Pupil coordinates : 43 ,56 Eye Cue :  moved right moved down
-2018-04-25 07:56:18 INFO     Pupil coordinates : 44 ,55 Eye Cue :  moved left moved down
-2018-04-25 07:56:18 INFO     Pupil coordinates : 42 ,54 Eye Cue :  moved right moved down
-2018-04-25 07:56:18 INFO     Pupil coordinates : 45 ,56 Eye Cue :  moved left moved up
-2018-04-25 07:56:18 INFO     Pupil coordinates : 43 ,50 Eye Cue :  moved right moved down
-2018-04-25 07:56:18 INFO     Pupil coordinates : 43 ,51 Eye Cue :  moved up
-2018-04-25 07:56:18 INFO     Pupil coordinates : 45 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:19 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved right moved down
-2018-04-25 07:56:19 INFO     Pupil coordinates : 45 ,56 Eye Cue :  moved left moved up
-2018-04-25 07:56:19 INFO     Pupil coordinates : 41 ,53 Eye Cue :  moved right moved down
-2018-04-25 07:56:19 INFO     Pupil coordinates : 45 ,56 Eye Cue :  moved left moved up
-2018-04-25 07:56:19 INFO     Pupil coordinates : 43 ,55 Eye Cue :  moved right moved down
-2018-04-25 07:56:19 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved down
-2018-04-25 07:56:19 INFO     Pupil coordinates : 42 ,55 Eye Cue :  moved right moved up
-2018-04-25 07:56:19 INFO     Pupil coordinates : 43 ,52 Eye Cue :  moved left moved down
-2018-04-25 07:56:19 INFO     Pupil coordinates : 44 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:19 INFO     Pupil coordinates : 45 ,55 Eye Cue :  moved left
-2018-04-25 07:56:20 INFO     Pupil coordinates : 42 ,51 Eye Cue :  moved right moved down
-2018-04-25 07:56:20 INFO     Pupil coordinates : 45 ,54 Eye Cue :  moved left moved up
-2018-04-25 07:56:20 INFO     Pupil coordinates : 48 ,49 Eye Cue :  moved left moved down
-2018-04-25 07:56:21 INFO     Pupil coordinates : 44 ,54 Eye Cue :  moved right moved up
-2018-04-25 07:56:21 INFO     Pupil coordinates : 40 ,54 Eye Cue :  moved right
-2018-04-25 07:56:21 INFO     Pupil coordinates : 39 ,54 Eye Cue :  moved right
-2018-04-25 07:56:21 INFO     Pupil coordinates : 40 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:21 INFO     Pupil coordinates : 45 ,56 Eye Cue :  moved left moved up
-2018-04-25 07:56:21 INFO     Pupil coordinates : 47 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:22 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved right moved down
-2018-04-25 07:56:22 INFO     Pupil coordinates : 40 ,56 Eye Cue :  moved right moved up
-2018-04-25 07:56:22 INFO     Pupil coordinates : 40 ,55 Eye Cue :  moved down
-2018-04-25 07:56:22 INFO     Pupil coordinates : 39 ,56 Eye Cue :  moved right moved up
-2018-04-25 07:56:22 INFO     Pupil coordinates : 42 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:22 INFO     Pupil coordinates : 40 ,54 Eye Cue :  moved right moved down
-2018-04-25 07:56:22 INFO     Pupil coordinates : 45 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:22 INFO     Pupil coordinates : 43 ,54 Eye Cue :  moved right moved down
-2018-04-25 07:56:22 INFO     Pupil coordinates : 45 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 46 ,56 Eye Cue :  moved left moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 40 ,51 Eye Cue :  moved right moved down
-2018-04-25 07:56:23 INFO     Pupil coordinates : 43 ,52 Eye Cue :  moved left moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 44 ,54 Eye Cue :  moved left moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 41 ,55 Eye Cue :  moved right moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 42 ,57 Eye Cue :  moved left moved up
-2018-04-25 07:56:23 INFO     Pupil coordinates : 42 ,54 Eye Cue :  moved down
-2018-04-25 07:56:24 INFO     Pupil coordinates : 46 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:24 INFO     Pupil coordinates : 41 ,50 Eye Cue :  moved right moved down
-2018-04-25 07:56:24 INFO     Pupil coordinates : 46 ,52 Eye Cue :  moved left moved up
-2018-04-25 07:56:24 INFO     Pupil coordinates : 44 ,51 Eye Cue :  moved right moved down
-2018-04-25 07:56:24 INFO     Pupil coordinates : 43 ,50 Eye Cue :  moved right moved down
-2018-04-25 07:56:24 INFO     Pupil coordinates : 39 ,50 Eye Cue :  moved right
-2018-04-25 07:56:24 INFO     Pupil coordinates : 40 ,55 Eye Cue :  moved left moved up
-2018-04-25 07:56:25 INFO     Pupil coordinates : 41 ,55 Eye Cue :  moved left
+2018-04-25 19:35:49 INFO     Coordinates : 40 ,51 - Gaze : left up
+2018-04-25 19:35:49 INFO     Coordinates : 41 ,50 - Gaze : down
+2018-04-25 19:35:49 INFO     Coordinates : 40 ,50 - Gaze :
+2018-04-25 19:35:49 INFO     Coordinates : 42 ,52 - Gaze :
+2018-04-25 19:35:49 INFO     Coordinates : 40 ,52 - Gaze :
+2018-04-25 19:35:49 INFO     Coordinates : 42 ,54 - Gaze :
+2018-04-25 19:35:50 INFO     Coordinates : 40 ,53 - Gaze : down
+2018-04-25 19:35:50 INFO     Coordinates : 39 ,50 - Gaze : down
+2018-04-25 19:35:50 INFO     Coordinates : 42 ,54 - Gaze :
+2018-04-25 19:35:50 INFO     Coordinates : 39 ,51 - Gaze : down
+2018-04-25 19:35:50 INFO     Coordinates : 36 ,48 - Gaze : down
+2018-04-25 19:35:50 INFO     Coordinates : 38 ,50 - Gaze :
+2018-04-25 19:35:50 INFO     Coordinates : 41 ,51 - Gaze :
+2018-04-25 19:35:50 INFO     Coordinates : 39 ,52 - Gaze :
+2018-04-25 19:35:50 INFO     Coordinates : 39 ,51 - Gaze : down
+2018-04-25 19:35:51 INFO     Coordinates : 40 ,51 - Gaze :
+2018-04-25 19:35:51 INFO     Coordinates : 38 ,49 - Gaze : down
+2018-04-25 19:35:51 INFO     Coordinates : 40 ,54 - Gaze :
+2018-04-25 19:35:51 INFO     Coordinates : 39 ,54 - Gaze :
+2018-04-25 19:35:51 INFO     Coordinates : 40 ,53 - Gaze : down
+2018-04-25 19:35:51 INFO     Coordinates : 38 ,49 - Gaze : down
+2018-04-25 19:35:51 INFO     Coordinates : 42 ,52 - Gaze :
+2018-04-25 19:35:51 INFO     Coordinates : 40 ,55 - Gaze :
+2018-04-25 19:35:52 INFO     Coordinates : 43 ,55 - Gaze :
+2018-04-25 19:35:52 INFO     Coordinates : 42 ,49 - Gaze : down
+2018-04-25 19:35:52 INFO     Coordinates : 44 ,56 - Gaze :
+2018-04-25 19:35:52 INFO     Coordinates : 45 ,57 - Gaze :
+2018-04-25 19:35:52 INFO     Coordinates : 39 ,55 - Gaze : right down
+2018-04-25 19:35:52 INFO     Coordinates : 41 ,54 - Gaze : down
+2018-04-25 19:35:53 INFO     Coordinates : 41 ,53 - Gaze : down
+2018-04-25 19:35:53 INFO     Coordinates : 43 ,55 - Gaze :
+2018-04-25 19:35:53 INFO     Coordinates : 38 ,52 - Gaze : right down

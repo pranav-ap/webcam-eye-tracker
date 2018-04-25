@@ -13,22 +13,20 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
     (x, y, width, height) = face
     (ex, ey, ew, eh) = eye
 
-    just_the_face_frame = preprocessed_frame_full[y: y + height, x: x + width]
-    just_the_eye_frame = just_the_face_frame[ey: ey + eh, ex: ex + ew]
+    face_frame = preprocessed_frame_full[y: y + height, x: x + width]
+    eye_frame = face_frame[ey: ey + eh, ex: ex + ew]
 
-    preprocesses_just_the_eye_frame = preprocess_just_the_eye_frame(just_the_eye_frame)
+    preprocesses_eye_frame = preprocess_eye_frame(eye_frame)
 
     # Detect blobs
-    keypoints = pupil_detector.detect(preprocesses_just_the_eye_frame)
-
-    print(just_the_eye_frame.shape)
+    keypoints = pupil_detector.detect(preprocesses_eye_frame)
 
     for keypoint in keypoints:
         x = int(keypoint.pt[0])
         y = int(keypoint.pt[1])
 
-        just_the_eye_frame = cv2.drawMarker(
-           just_the_eye_frame,
+        eye_frame = cv2.drawMarker(
+           eye_frame,
            (x, y),
            (255, 255, 0),
            markerSize = 10
@@ -50,22 +48,22 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
 
         previous_position = (x, y)
 
-        logging.info('Pupil coordinates : ' + str(x) + ' ,' + str(y) + ' Eye Cue : ' + cue)
+        logging.info('Coordinates : ' + str(x) + ' ,' + str(y) + ' - Gaze :' + cue)
 
-    cv2.imshow('preprocessed eyes', preprocesses_just_the_eye_frame)
-    cv2.imshow('detection eyes', just_the_eye_frame)
+    cv2.imshow('preprocessed eyes', preprocesses_eye_frame)
+    cv2.imshow('detection eyes', eye_frame)
 
     return preprocessed_frame_full
 
 
-def preprocess_just_the_eye_frame(just_the_eye_frame):
+def preprocess_eye_frame(eye_frame):
     # Apply adaptive thresholding
     max_output_value = 100
     neighorhood_size = 99
     subtract_from_mean = 8
 
-    just_the_eye_frame = cv2.adaptiveThreshold(
-        just_the_eye_frame,
+    eye_frame = cv2.adaptiveThreshold(
+        eye_frame,
         max_output_value,
         cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
         cv2.THRESH_BINARY,
@@ -73,21 +71,21 @@ def preprocess_just_the_eye_frame(just_the_eye_frame):
         subtract_from_mean
         )
 
-    return just_the_eye_frame
+    return eye_frame
 
 
 def detectEyes(color_frame_full, preprocessed_frame_full, face):
     (x, y, width, height) = face
 
-    just_the_face_frame = preprocessed_frame_full[y: y + height, x: x + width]
+    face_frame = preprocessed_frame_full[y: y + height, x: x + width]
 
-    right_eyes = right_eye_cascade.detectMultiScale(just_the_face_frame, 1.3, 12)
+    right_eyes = right_eye_cascade.detectMultiScale(face_frame, 1.3, 12)
 
     for eye in right_eyes:
         (ex, ey, ew, eh) = eye
 
         cv2.rectangle(
-            just_the_face_frame,
+            face_frame,
             (ex, ey),
             (ex + ew, ey + eh),
             (0, 255, 0),
@@ -95,7 +93,7 @@ def detectEyes(color_frame_full, preprocessed_frame_full, face):
             )
 
         cv2.putText(
-            just_the_face_frame,
+            face_frame,
             "Eye",
             (ex, ey - 5),
             cv2.FONT_HERSHEY_SIMPLEX,
