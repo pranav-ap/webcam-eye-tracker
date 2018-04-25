@@ -48,7 +48,7 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
 
         previous_position = (x, y)
 
-        logging.info('Coordinates : ' + str(x) + ' ,' + str(y) + ' - Gaze :' + cue)
+        logging.info('Coordinates : ' + str(x) + ' , ' + str(y) + ' - Gaze :' + cue)
 
     cv2.imshow('preprocessed eyes', preprocesses_eye_frame)
     cv2.imshow('detection eyes', eye_frame)
