@@ -122,7 +122,7 @@ def detectFaces(color_frame_full, preprocessed_frame_full):
             (x, y),
             (x + width, y + height),
             (255, 0, 0), # color of rectangle
-            2 # width of rectangle
+            2 # thickness of rectangle
             )
 
         cv2.putText(
@@ -157,9 +157,9 @@ def start(color_frame_full):
 def setup():
     # -- Setup logger --
     logging.basicConfig(
-        format='%(asctime)s %(levelname)-8s %(message)s',
-    	level=logging.INFO,
-		datefmt='%Y-%m-%d %H:%M:%S',
+        format = '%(asctime)s %(levelname)-8s %(message)s',
+    	level = logging.INFO,
+		datefmt = '%H:%M:%S',
         filename = 'tracker.log',
         filemode = 'w')
 
