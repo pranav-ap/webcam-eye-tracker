@@ -7,7 +7,6 @@ right_eye_cascade = cv2.CascadeClassifier(r'.\haarcascades\haarcascade_right_eye
 
 pupil_detector = cv2.SimpleBlobDetector_create()
 
-previous_position = (1, 1)
 
 def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
     (x, y, width, height) = face
@@ -32,23 +31,7 @@ def detectPupils(color_frame_full, preprocessed_frame_full, face, eye):
            markerSize = 10
            )
 
-        global previous_position
-
-        cue = ''
-
-        if (previous_position[0] > x):
-            cue += ' right'
-        if (previous_position[0] < x):
-            cue += ' left'
-
-        if (previous_position[1] > y):
-            cue += ' down'
-        if (previous_position[1] < y):
-            cue += ' up'
-
-        previous_position = (x, y)
-
-        logging.info('Coordinates : ' + str(x) + ' , ' + str(y) + ' - Gaze :' + cue)
+        logging.info('Coordinates : ' + str(x) + ' , ' + str(y))
 
     cv2.imshow('preprocessed eyes', preprocesses_eye_frame)
     cv2.imshow('detection eyes', eye_frame)
@@ -142,6 +125,8 @@ def detectFaces(color_frame_full, preprocessed_frame_full):
 
 def preprocess_color_frame_full(color_frame_full):
     preprocessed_frame_full = cv2.cvtColor(color_frame_full, cv2.COLOR_BGR2GRAY)
+
+    # perform lighting processing here
 
     return preprocessed_frame_full
 
